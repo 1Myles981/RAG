@@ -1597,12 +1597,18 @@ button {
   }
 
   .product-window,
-  .product-window.rail-expanded,
-  .product-window.calculator-open,
-  .product-window.rail-expanded.calculator-open {
+  .product-window.calculator-open {
     width: 100%;
     min-height: calc(100vh - 64px);
     grid-template-columns: 64px minmax(0, 1fr);
+    border-radius: 26px;
+  }
+
+  .product-window.rail-expanded,
+  .product-window.rail-expanded.calculator-open {
+    width: 100%;
+    min-height: calc(100vh - 64px);
+    grid-template-columns: 180px minmax(0, 1fr);
     border-radius: 26px;
   }
 
@@ -1614,12 +1620,13 @@ button {
     padding: 18px 10px;
   }
 
-  .rail-expanded .rail-label {
-    display: none;
+  .product-window.rail-expanded .rail-label {
+    display: inline;
   }
 
   .rail-history {
-    display: none;
+    max-height: calc(100vh - 310px);
+    overflow-y: auto;
   }
 
   .calculator-panel {
@@ -1640,6 +1647,18 @@ button {
   .stage-frame,
   .welcome-hero {
     min-height: 520px;
+  }
+
+  .generating-panel {
+    min-height: 360px;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 22px;
+    padding: 30px;
+  }
+
+  .scanner {
+    width: 142px;
+    height: 142px;
   }
 
   .welcome-hero {
@@ -1753,11 +1772,13 @@ button {
     top: 0;
     z-index: 30;
     flex-direction: row;
+    align-content: flex-start;
+    flex-wrap: wrap;
     gap: 8px;
     padding: 10px;
     border-right: 0;
     border-bottom: 1px solid var(--line);
-    overflow-x: auto;
+    overflow: visible;
   }
 
   .icon-rail button {
@@ -1765,6 +1786,29 @@ button {
     height: 40px;
     flex: 0 0 auto;
     border-radius: 14px;
+  }
+
+  .product-window.rail-expanded .icon-rail button {
+    width: calc(50% - 4px);
+    justify-content: flex-start;
+    padding: 0 12px;
+  }
+
+  .product-window.rail-expanded .rail-label {
+    display: inline;
+  }
+
+  .rail-history {
+    width: 100%;
+    max-height: 190px;
+    margin-top: 2px;
+    padding: 12px;
+    border-radius: 16px;
+    overflow-y: auto;
+  }
+
+  .history-entry {
+    width: 100% !important;
   }
 
   .workspace {
@@ -1849,6 +1893,43 @@ button {
   .retrieval-info-card,
   .generating-panel {
     border-radius: 20px;
+  }
+
+  .generating-panel {
+    min-height: calc(100dvh - 170px);
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-content: center;
+    justify-items: center;
+    padding: 24px 18px;
+    text-align: center;
+  }
+
+  .generating-panel h2 {
+    font-size: 26px;
+    line-height: 1.25;
+  }
+
+  .generating-panel p {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .scanner {
+    width: 118px;
+    height: 118px;
+  }
+
+  .scanner span {
+    inset: 14px;
+  }
+
+  .scanner span:nth-child(2) {
+    inset: 32px;
+  }
+
+  .scanner span:nth-child(3) {
+    inset: 52px;
   }
 
   .file-list-panel {
