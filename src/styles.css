@@ -1721,20 +1721,23 @@ button {
 
   .source-document-outline {
     max-height: none;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
-    overflow-x: auto;
+    overflow: visible;
   }
 
   .source-document-outline h3 {
-    flex: 0 0 auto;
-    margin: 8px 8px 0 0;
+    grid-column: 1 / -1;
+    margin: 0 0 4px;
   }
 
   .source-document-outline button {
-    width: auto;
-    flex: 0 0 auto;
-    white-space: nowrap;
+    width: 100%;
+    min-height: 42px;
+    margin: 0;
+    white-space: normal;
+    word-break: keep-all;
   }
 
   .source-document-body {
@@ -2025,20 +2028,42 @@ button {
   }
 
   .source-preview header {
+    align-items: flex-start;
     padding: 18px 16px 14px;
   }
 
   .source-preview h2 {
     font-size: 20px;
+    line-height: 1.25;
   }
 
   .source-preview-meta {
     padding: 14px 16px 0;
   }
 
+  .source-preview-meta span {
+    max-width: 100%;
+    line-height: 1.35;
+  }
+
   .source-document-viewer {
     gap: 12px;
     padding: 16px;
+  }
+
+  .source-document-outline {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .source-document-outline button {
+    min-height: 40px;
+    padding: 9px 12px;
+    font-size: 15px;
+  }
+
+  .document-section {
+    padding: 15px 14px;
   }
 
   .document-section p {
