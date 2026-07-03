@@ -65,6 +65,10 @@ button {
     linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(236, 253, 245, 0.38));
   box-shadow: var(--shadow);
   backdrop-filter: blur(24px) saturate(1.18);
+  transition:
+    grid-template-columns 360ms var(--ease),
+    border-radius 260ms var(--ease),
+    box-shadow 260ms ease;
 }
 
 .product-window.rail-expanded {
@@ -88,6 +92,10 @@ button {
   border-right: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.42);
   overflow: hidden;
+  transition:
+    padding 320ms var(--ease),
+    gap 320ms var(--ease),
+    background 260ms ease;
 }
 
 .icon-rail button {
@@ -102,7 +110,12 @@ button {
   color: #2f4f4a;
   background: rgba(255, 255, 255, 0.58);
   box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
-  transition: transform 220ms var(--ease), background 220ms ease, box-shadow 220ms ease;
+  transition:
+    width 320ms var(--ease),
+    padding 320ms var(--ease),
+    transform 220ms var(--ease),
+    background 220ms ease,
+    box-shadow 220ms ease;
 }
 
 .rail-icon {
@@ -113,16 +126,25 @@ button {
 }
 
 .rail-label {
-  display: none;
+  display: inline-block;
+  max-width: 0;
   min-width: 0;
+  opacity: 0;
   overflow: hidden;
+  transform: translateX(-6px);
   font-size: 13px;
   font-weight: 800;
   white-space: nowrap;
+  transition:
+    max-width 320ms var(--ease),
+    opacity 180ms ease,
+    transform 260ms var(--ease);
 }
 
 .rail-expanded .rail-label {
-  display: inline;
+  max-width: 110px;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .icon-rail button:hover {
@@ -140,6 +162,19 @@ button {
   background: rgba(255, 255, 255, 0.44);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
+  animation: railPanelIn 260ms var(--ease) both;
+}
+
+@keyframes railPanelIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px) translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
 }
 
 .rail-history h2 {
@@ -1620,10 +1655,6 @@ button {
     padding: 18px 10px;
   }
 
-  .product-window.rail-expanded .rail-label {
-    display: inline;
-  }
-
   .rail-history {
     max-height: calc(100vh - 310px);
     overflow-y: auto;
@@ -1782,6 +1813,10 @@ button {
     border-right: 0;
     border-bottom: 1px solid var(--line);
     overflow: visible;
+    transition:
+      padding 320ms var(--ease),
+      gap 320ms var(--ease),
+      background 260ms ease;
   }
 
   .icon-rail button {
@@ -1797,10 +1832,6 @@ button {
     padding: 0 12px;
   }
 
-  .product-window.rail-expanded .rail-label {
-    display: inline;
-  }
-
   .rail-history {
     width: 100%;
     max-height: 190px;
@@ -1808,6 +1839,19 @@ button {
     padding: 12px;
     border-radius: 16px;
     overflow-y: auto;
+    animation: mobileRailPanelIn 300ms var(--ease) both;
+  }
+
+  @keyframes mobileRailPanelIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .history-entry {
