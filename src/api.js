@@ -1,8 +1,9 @@
-import { documents as mockDocuments, metrics as mockMetrics, mockResponse } from './mockData.js';
+import { getMockData } from './mockData.js';
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '');
 
-function mockAnswer(question) {
+function mockAnswer(question, language) {
+  const { mockResponse } = getMockData(language);
   return { ...mockResponse, question };
 }
 
@@ -25,46 +26,46 @@ async function fetchJson(path, options) {
   return response.json();
 }
 
-export async function askQuestion(question) {
+export async function askQuestion(question, language = 'zh') {
   if (!apiBaseUrl) {
-    return delay(mockAnswer(question));
+    return delay(mockAnswer(question, language));
   }
 
   try {
     const data = await fetchJson('/qa', {
       method: 'POST',
-      body: JSON.stringify({ question })
+      body: JSON.stringify({ question, language })
     });
 
     return { ...data, question: data.question || question };
   } catch (error) {
-    console.warn('问答接口不可用，已回退到模拟数据。', error);
-    return delay(mockAnswer(question), 160);
+    console.warn('QA API unavailable. Falling back to mock data.', error);
+    return delay(mockAnswer(question, language), 160);
   }
 }
 
-export async function loadDocuments() {
+export async function loadDocuments(language = 'zh') {
   if (!apiBaseUrl) {
-    return mockDocuments;
+    return getMockData(language).documents;
   }
 
   try {
-    return await fetchJson('/documents');
+    return await fetchJson(`/documents?language=${language}`);
   } catch (error) {
-    console.warn('知识库接口不可用，已回退到模拟数据。', error);
-    return mockDocuments;
+    console.warn('Documents API unavailable. Falling back to mock data.', error);
+    return getMockData(language).documents;
   }
 }
 
-export async function loadMetrics() {
+export async function loadMetrics(language = 'zh') {
   if (!apiBaseUrl) {
-    return mockMetrics;
+    return getMockData(language).metrics;
   }
 
   try {
-    return await fetchJson('/metrics');
+    return await fetchJson(`/metrics?language=${language}`);
   } catch (error) {
-    console.warn('指标接口不可用，已回退到模拟数据。', error);
-    return mockMetrics;
+    console.warn('Metrics API unavailable. Falling back to mock data.', error);
+    return getMockData(language).metrics;
   }
 }
